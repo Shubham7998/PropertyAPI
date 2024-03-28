@@ -10,8 +10,8 @@ namespace Property.IRepositories
     public interface IPropertyRepository : IRepository<Propertys>
     {
         Task<IEnumerable<Propertys>> GetSearchAsync(string find);
-
         Task<IEnumerable<Propertys>> GetPropertysAsync();
+        Task<IEnumerable<Propertys>> GetPropertyAdvanceFilterAsync(Propertys propertysObj);
 
     }
 }

@@ -64,6 +64,10 @@ namespace Property.Services
             return false;
         }
 
+        
+
+        
+
         public async Task<GetPropertyDto> GetPropertyAsync(int Id)
         {
             try
@@ -107,7 +111,6 @@ namespace Property.Services
                                             property.PropertyStatusType.StatusName
                                             
                                             ));
-
                 return propertyDto;
             }
             catch(Exception ex) 
@@ -115,7 +118,58 @@ namespace Property.Services
                 Console.WriteLine(ex.Message); return null;
             }
         }
+        public async Task<IEnumerable<GetPropertiesDto>> GetSearchAsync(string search)
+        {
+            try
+            {
+                var propertyList = await _propertyRepository.GetSearchAsync(search);
 
+                var propertyDto = propertyList.Select(
+                                                property => new GetPropertiesDto(property.PropertyId,
+                                                property.PropertyTitle,
+                                                property.PropertyTypeId,
+                                                property.PropertyDescription,
+                                                property.PropertyAddress,
+                                                property.PropertyPrice,
+                                                property.PropertySize,
+                                                property.PropertyBedrooms,
+                                                property.PropertyStatusId,
+                                                property.PropertyType.TypeName,
+                                                property.PropertyStatusType.StatusName
+                                                ));
+
+                return propertyDto;
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
+
+        }
+        public async Task<IEnumerable<GetPropertiesDto>> GetPropertyAdvanceFilterAsync(Propertys propertysObj)
+        {
+
+            var propertyList = await _propertyRepository.GetPropertyAdvanceFilterAsync(propertysObj);
+
+            var propertyDto = propertyList.Select(
+            property => 
+                       new GetPropertiesDto(
+                                            property.PropertyId,
+                                            property.PropertyTitle,
+                                            property.PropertyTypeId,
+                                            property.PropertyDescription,
+                                            property.PropertyAddress,
+                                            property.PropertyPrice,
+                                            property.PropertySize,
+                                            property.PropertyBedrooms,
+                                            property.PropertyStatusId,
+                                            property.PropertyType.TypeName,
+                                            property.PropertyStatusType.StatusName
+                                            ));
+
+            return propertyDto;
+        }
         public async Task<GetPropertyDto> UpdatePropertyAsync(int Id, UpdatePropertyDto carDto)
         {
             try
@@ -151,23 +205,6 @@ namespace Property.Services
                 return null;
         }
 
-        public async Task<IEnumerable<GetPropertyDto>> GetSearchAsync(string search)
-        {
-            var bikeList = await _propertyRepository.GetSearchAsync(search);
-
-            var bikeDto = bikeList.Select(property => new GetPropertyDto(property.PropertyId,
-                                            property.PropertyTitle,
-                                            property.PropertyTypeId,
-                                            property.PropertyDescription,
-                                            property.PropertyAddress,
-                                            property.PropertyPrice,
-                                            property.PropertySize,
-                                            property.PropertyBedrooms,
-                                            property.PropertyStatusId));
-
-            return bikeDto;
-
-
-        }
+        
     }
 }

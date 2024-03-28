@@ -17,6 +17,44 @@ GET {{Property.API_HostAddress}}/api/propertys/search?find=s
 
 ###
 
-GET {{Property.API_HostAddress}}/api/propertys/search?find=string
+POST {{Property.API_HostAddress}}/api/propertys/search?find=string
+
+###
+
+GET {{Property.API_HostAddress}}/api/propertys/filter
+
+###
+
+GET {{Property.API_HostAddress}}/api/propertys/filter
+
+{
+        "propertyTitle" : "propertyTitle",
+        "propertyTypeId": 0,
+        "propertyDescription" : "propertyDescription",
+        "propertyAddress": "propertyAddress",
+        "propertyPrice": 10,
+        "propertySize": 10,
+        "propertyBedrooms": 10,
+        "propertyStatusId": 10
+}
+###
+
+GET {{Property.API_HostAddress}}/api/propertys/filter
+
+###
+
+POST {{Property.API_HostAddress}}/api/propertys
+Content-Type: application/json
+
+{
+         "propertyTitle" : "propertyTitle",
+        "propertyTypeId": 0,
+        "propertyDescription" : "propertyDescription",
+        "propertyAddress": "propertyAddress",
+        "propertyPrice": 10,
+        "propertySize": 10,
+        "propertyBedrooms": 10,
+        "propertyStatusId": 10
+}
 
 ###

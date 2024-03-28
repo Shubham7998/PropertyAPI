@@ -30,6 +30,7 @@ namespace Property.Repositories
         {
             return await _dbContext.Set<T>().ToListAsync();
         }
+                   
 
         public async Task<T> GetByIdAsync(int id)
         {
@@ -43,5 +44,6 @@ namespace Property.Repositories
 
             return entity;
         }
+        
     }
 }
