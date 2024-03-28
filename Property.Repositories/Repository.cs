@@ -25,7 +25,7 @@ namespace Property.Repositories
             int row = await _dbContext.SaveChangesAsync();
             return row > 0;
         }
-
+        
         public async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _dbContext.Set<T>().ToListAsync();

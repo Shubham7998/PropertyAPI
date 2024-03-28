@@ -4,3 +4,19 @@ GET {{Property.API_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{Property.API_HostAddress}}/api/propertys/search?find=ok
+
+###
+
+GET {{Property.API_HostAddress}}/api/propertys/search?find=string
+
+###
+
+GET {{Property.API_HostAddress}}/api/propertys/search?find=s
+
+###
+
+GET {{Property.API_HostAddress}}/api/propertys/search?find=string
+
+###

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Property.DTO;
 using Property.IServices;
+using Property.Model;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,10 +20,11 @@ namespace Property.API.Controllers
 
         // GET: api/<PropertysController>
         [HttpGet]
-        public Task<IEnumerable<GetPropertyDto>> Get()
+        public Task<IEnumerable<GetPropertiesDto>> Get()
         {
             return _propertyService.GetPropertysAsync();
         }
+
 
         // GET api/<PropertysController>/5
         [HttpGet("{id}")]
@@ -50,6 +52,21 @@ namespace Property.API.Controllers
         public async Task<bool> Delete(int id)
         {
             return await _propertyService.DeletePropertyAsync(id);
+        }
+
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<GetPropertyDto>>> SearchInput(string find)
+        {
+            try
+            {
+                var bikeinfo = await _propertyService.GetSearchAsync(find);
+                return Ok(bikeinfo);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while retrieving bike infos: {ex.Message}");
+
+            }
         }
     }
 }
