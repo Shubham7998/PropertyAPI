@@ -1,4 +1,5 @@
 ﻿using Property.DTO;
+using Property.Model;
 
 namespace Property.IServices
 {
@@ -9,7 +10,8 @@ namespace Property.IServices
         public Task<bool> DeletePropertyAsync(int Id);
         public Task<GetPropertyDto> GetPropertyAsync(int Id);
         public Task<IEnumerable<GetPropertiesDto>> GetPropertysAsync();
+        public Task<IEnumerable<GetPropertiesDto>> GetPropertyAdvanceFilterAsync(GetPropertyDto propertysObj);
 
-        public Task<IEnumerable<GetPropertyDto>> GetSearchAsync(string find);
+        public Task<IEnumerable<GetPropertiesDto>> GetSearchAsync(string find);
     }
 }

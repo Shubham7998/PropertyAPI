@@ -17,7 +17,7 @@ namespace Property.Model
         [Required(ErrorMessage = "Please select a property type")]
         [ForeignKey("PropertyType")]
         public int PropertyTypeId { get; set; }
-        public PropertyType PropertyType { get; set; }
+        public virtual PropertyType PropertyType { get; set; }
 
         [Required(ErrorMessage = "Please enter a property description")]
         [StringLength(200, ErrorMessage = "The description must be between 20 and 200 characters", MinimumLength = 20)]
@@ -42,6 +42,6 @@ namespace Property.Model
         [Required(ErrorMessage = "Please select a property status")]
         [ForeignKey("PropertyStatusType")]
         public int PropertyStatusId { get; set; }
-        public PropertyStatusType PropertyStatusType { get; set; }
+        public virtual PropertyStatusType PropertyStatusType { get; set; }
     }
 }

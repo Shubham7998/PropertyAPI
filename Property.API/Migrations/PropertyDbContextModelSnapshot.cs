@@ -36,7 +36,7 @@ namespace Property.API.Migrations
 
                     b.HasKey("PropertyStatusId");
 
-                    b.ToTable("PropertyStatus");
+                    b.ToTable("PropertyStatus", (string)null);
                 });
 
             modelBuilder.Entity("Property.Model.PropertyType", b =>
@@ -54,7 +54,7 @@ namespace Property.API.Migrations
 
                     b.HasKey("PropertyTypeId");
 
-                    b.ToTable("PropertyType");
+                    b.ToTable("PropertyType", (string)null);
                 });
 
             modelBuilder.Entity("Property.Model.Propertys", b =>
@@ -101,7 +101,7 @@ namespace Property.API.Migrations
 
                     b.HasIndex("PropertyTypeId");
 
-                    b.ToTable("Propertys");
+                    b.ToTable("Propertys", (string)null);
                 });
 
             modelBuilder.Entity("Property.Model.Propertys", b =>

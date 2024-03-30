@@ -25,11 +25,38 @@ namespace Property.API.Controllers
             return _propertyService.GetPropertysAsync();
         }
 
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<GetPropertyDto>>> SearchInput(string find)
+        {
+            try
+            {
+                var propertyInfo = await _propertyService.GetSearchAsync(find);
+                return Ok(propertyInfo);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while retrieving property info : {ex.Message}");
 
+            }
+        }
+        [HttpPost("advancesearch")]
+        public async Task<ActionResult<IEnumerable<GetPropertyDto>>> AdvanceSearchInput([FromBody] GetPropertyDto propertys)
+        {
+            try
+            {
+                var filteredData = await _propertyService.GetPropertyAdvanceFilterAsync(propertys);
+                return Ok(filteredData);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while retrieving property info : {ex.Message}");
+
+            }
+        }
         // GET api/<PropertysController>/5
         [HttpGet("{id}")]
         public async Task<GetPropertyDto> Get(int id)
-        {
+       {
             return await _propertyService.GetPropertyAsync(id);
         }
 
@@ -54,19 +81,5 @@ namespace Property.API.Controllers
             return await _propertyService.DeletePropertyAsync(id);
         }
 
-        [HttpGet("search")]
-        public async Task<ActionResult<IEnumerable<GetPropertyDto>>> SearchInput(string find)
-        {
-            try
-            {
-                var bikeinfo = await _propertyService.GetSearchAsync(find);
-                return Ok(bikeinfo);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred while retrieving bike infos: {ex.Message}");
-
-            }
-        }
     }
 }

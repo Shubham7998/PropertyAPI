@@ -5,6 +5,7 @@ using Property.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,24 +23,71 @@ namespace Property.Repositories
         {
            return await _dbContext.properties.Include(x=>x.PropertyType).Include(x=>x.PropertyStatusType).ToListAsync();
         }
+        
+        public async Task<IEnumerable<Propertys>> GetPropertyAdvanceFilterAsync(Propertys propertysObj)
+        {
+            var query = _dbContext.properties.AsQueryable();
+            
+            await _dbContext.properties.Include(x => x.PropertyType).Include(x => x.PropertyStatusType).ToListAsync();
+            //propertysObj.PropertyTitle = "qwerqwe";
+            if (!string.IsNullOrWhiteSpace(propertysObj.PropertyTitle))
+                
+            {
+                query = query.Where(property => property.PropertyTitle == propertysObj.PropertyTitle);
+                ////// if(query == null)
+                ////// {
+                //////     return null;
+                ////// }
 
+            }
+            
+            if (!string.IsNullOrWhiteSpace(propertysObj.PropertyDescription))
+            {
+                
+                query = query.Where(property => property.PropertyDescription == propertysObj.PropertyDescription);
+            }
+          
+            if (!string.IsNullOrWhiteSpace(propertysObj.PropertyAddress))
+            {
+                query = query.Where(property => property.PropertyAddress == propertysObj.PropertyAddress);
+            }
+            
+            if (propertysObj.PropertyPrice > 0)
+            {
+                query = query.Where(property => property.PropertyPrice == propertysObj.PropertyPrice);
+            }
+
+            if (propertysObj.PropertySize > 0)
+            {
+                query = query.Where(property => property.PropertySize == propertysObj.PropertySize);
+            }
+
+            if (propertysObj.PropertyBedrooms > 0)
+            {
+                query = query.Where(property => property.PropertyBedrooms == propertysObj.PropertyBedrooms);
+            }
+
+            return await query.ToListAsync();
+        }
         public async Task<IEnumerable<Propertys>> GetSearchAsync(string find)
         {
+
+            //if(int.TryParse(find, out int count))
+            //{
+
+            //}
             
             string keyword = find.ToLower();
 
-
+            await _dbContext.properties.Include(x => x.PropertyType).Include(x => x.PropertyStatusType).ToListAsync();
 
             var filteredList = _dbContext.properties
 
                     .Where(p =>
 
                     p.PropertyAddress.ToLower().Contains(keyword) ||
-
-                   p.PropertyDescription.ToLower().Contains(keyword) ||
-
-                   p.PropertyTitle.ToLower().Contains(keyword) ||
-
+                    p.PropertyDescription.ToLower().Contains(keyword) ||
+                    p.PropertyTitle.ToLower().Contains(keyword) ||
                     p.PropertyBedrooms.Equals(keyword) || 
                     p.PropertyPrice.Equals(keyword))
 

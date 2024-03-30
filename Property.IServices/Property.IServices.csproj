@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Property.DTO\Property.DTO.csproj" />
+    <ProjectReference Include="..\Property.Model\Property.Model.csproj" />
   </ItemGroup>
 
 </Project>

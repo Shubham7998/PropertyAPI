@@ -64,6 +64,8 @@ namespace Property.Services
             return false;
         }
 
+        
+
         public async Task<GetPropertyDto> GetPropertyAsync(int Id)
         {
             try
@@ -94,7 +96,78 @@ namespace Property.Services
                 var propertys = await _propertyRepository.GetPropertysAsync();
 
                 var propertyDto = propertys.Select(
-                                                    property => new GetPropertiesDto(property.PropertyId,
+                                            property => 
+                                            new GetPropertiesDto(
+
+                                                    property.PropertyId,
+                                                    property.PropertyTitle,
+                                                    property.PropertyTypeId,
+                                                    property.PropertyDescription,
+                                                    property.PropertyAddress,
+                                                    property.PropertyPrice,
+                                                    property.PropertySize,
+                                                    property.PropertyBedrooms,
+                                                    property.PropertyStatusId,
+                                                    property.PropertyType.TypeName,
+                                                    property.PropertyStatusType.StatusName
+
+                                            ));
+                return propertyDto;
+            }
+            catch(Exception ex) 
+            {
+                Console.WriteLine(ex.Message); return null;
+            }
+        }
+
+        public async Task<IEnumerable<GetPropertiesDto>> GetSearchAsync(string search)
+        {
+            try
+            {
+                var propertyList = await _propertyRepository.GetSearchAsync(search);
+
+                var propertyDto = propertyList.Select(
+                                                property => new GetPropertiesDto(property.PropertyId,
+                                                property.PropertyTitle,
+                                                property.PropertyTypeId,
+                                                property.PropertyDescription,
+                                                property.PropertyAddress,
+                                                property.PropertyPrice,
+                                                property.PropertySize,
+                                                property.PropertyBedrooms,
+                                                property.PropertyStatusId,
+                                                property.PropertyType.TypeName,
+                                                property.PropertyStatusType.StatusName
+                                                ));
+
+                return propertyDto;
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+
+        }
+
+        public async Task<IEnumerable<GetPropertiesDto>> GetPropertyAdvanceFilterAsync(GetPropertyDto propertysObj)
+        {
+
+            var propertyList = await _propertyRepository.GetPropertyAdvanceFilterAsync(new Propertys() { 
+                PropertyId = propertysObj.PropertyId,
+                PropertyTitle = propertysObj.PropertyTitle,
+                PropertyTypeId = propertysObj.PropertyTypeId,
+                PropertyDescription = propertysObj.PropertyDescription,
+                PropertyAddress = propertysObj.PropertyAddress,
+                PropertyPrice = propertysObj.PropertyPrice,
+                PropertySize = propertysObj.PropertySize,
+                PropertyBedrooms = propertysObj.PropertyBedrooms,
+                PropertyStatusId = propertysObj.PropertyStatusId
+            });
+
+            var propertyDto = propertyList.Select(
+            property => 
+                       new GetPropertiesDto(
+                                            property.PropertyId,
                                             property.PropertyTitle,
                                             property.PropertyTypeId,
                                             property.PropertyDescription,
@@ -105,17 +178,10 @@ namespace Property.Services
                                             property.PropertyStatusId,
                                             property.PropertyType.TypeName,
                                             property.PropertyStatusType.StatusName
-                                            
                                             ));
 
-                return propertyDto;
-            }
-            catch(Exception ex) 
-            {
-                Console.WriteLine(ex.Message); return null;
-            }
+            return propertyDto;
         }
-
         public async Task<GetPropertyDto> UpdatePropertyAsync(int Id, UpdatePropertyDto carDto)
         {
             try
@@ -149,25 +215,6 @@ namespace Property.Services
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
                 return null;
-        }
-
-        public async Task<IEnumerable<GetPropertyDto>> GetSearchAsync(string search)
-        {
-            var bikeList = await _propertyRepository.GetSearchAsync(search);
-
-            var bikeDto = bikeList.Select(property => new GetPropertyDto(property.PropertyId,
-                                            property.PropertyTitle,
-                                            property.PropertyTypeId,
-                                            property.PropertyDescription,
-                                            property.PropertyAddress,
-                                            property.PropertyPrice,
-                                            property.PropertySize,
-                                            property.PropertyBedrooms,
-                                            property.PropertyStatusId));
-
-            return bikeDto;
-
-
-        }
+        } 
     }
 }

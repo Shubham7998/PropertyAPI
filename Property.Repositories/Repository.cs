@@ -7,10 +7,12 @@ namespace Property.Repositories
     public class Repository<T> : IRepository<T> where T : class
     {
         private readonly PropertyDbContext _dbContext;
+
         public Repository(PropertyDbContext dbContext)
         {
             _dbContext = dbContext;
         }
+
         public async Task<T> CreateAsync(T entity)
         {
             await _dbContext.Set<T>().AddAsync(entity);
@@ -29,7 +31,7 @@ namespace Property.Repositories
         public async Task<IEnumerable<T>> GetAllAsync()
         {
             return await _dbContext.Set<T>().ToListAsync();
-        }
+        }                  
 
         public async Task<T> GetByIdAsync(int id)
         {
@@ -43,5 +45,6 @@ namespace Property.Repositories
 
             return entity;
         }
+        
     }
 }

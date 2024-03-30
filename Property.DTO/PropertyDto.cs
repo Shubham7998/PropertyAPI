@@ -33,7 +33,8 @@ namespace Property.DTO
                                     int PropertyBedrooms,
                                     int PropertyStatusId
                                     );
-    public record GetPropertiesDto(int PropertyId,
+    public record GetPropertiesDto(
+                                   int PropertyId,
                                   string PropertyTitle,
                                   int PropertyTypeId,
                                   string PropertyDescription,
