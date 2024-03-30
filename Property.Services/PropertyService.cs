@@ -66,8 +66,6 @@ namespace Property.Services
 
         
 
-        
-
         public async Task<GetPropertyDto> GetPropertyAsync(int Id)
         {
             try
@@ -98,17 +96,21 @@ namespace Property.Services
                 var propertys = await _propertyRepository.GetPropertysAsync();
 
                 var propertyDto = propertys.Select(
-                                            property => new GetPropertiesDto(property.PropertyId,
-                                            property.PropertyTitle,
-                                            property.PropertyTypeId,
-                                            property.PropertyDescription,
-                                            property.PropertyAddress,
-                                            property.PropertyPrice,
-                                            property.PropertySize,
-                                            property.PropertyBedrooms,
-                                            property.PropertyStatusId,
-                                            property.PropertyType.TypeName,
-                                            property.PropertyStatusType.StatusName
+                                            property => 
+                                            new GetPropertiesDto(
+
+                                                    property.PropertyId,
+                                                    property.PropertyTitle,
+                                                    property.PropertyTypeId,
+                                                    property.PropertyDescription,
+                                                    property.PropertyAddress,
+                                                    property.PropertyPrice,
+                                                    property.PropertySize,
+                                                    property.PropertyBedrooms,
+                                                    property.PropertyStatusId,
+                                                    property.PropertyType.TypeName,
+                                                    property.PropertyStatusType.StatusName
+
                                             ));
                 return propertyDto;
             }
@@ -117,6 +119,7 @@ namespace Property.Services
                 Console.WriteLine(ex.Message); return null;
             }
         }
+
         public async Task<IEnumerable<GetPropertiesDto>> GetSearchAsync(string search)
         {
             try
@@ -144,8 +147,8 @@ namespace Property.Services
                 return null;
             }
 
-
         }
+
         public async Task<IEnumerable<GetPropertiesDto>> GetPropertyAdvanceFilterAsync(GetPropertyDto propertysObj)
         {
 
@@ -212,8 +215,6 @@ namespace Property.Services
             }
             catch (Exception ex) { Console.WriteLine(ex.Message); }
                 return null;
-        }
-
-        
+        } 
     }
 }

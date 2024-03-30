@@ -27,25 +27,31 @@ namespace Property.Repositories
         public async Task<IEnumerable<Propertys>> GetPropertyAdvanceFilterAsync(Propertys propertysObj)
         {
             var query = _dbContext.properties.AsQueryable();
-
+            
             await _dbContext.properties.Include(x => x.PropertyType).Include(x => x.PropertyStatusType).ToListAsync();
-
+            //propertysObj.PropertyTitle = "qwerqwe";
             if (!string.IsNullOrWhiteSpace(propertysObj.PropertyTitle))
+                
             {
                 query = query.Where(property => property.PropertyTitle == propertysObj.PropertyTitle);
+                ////// if(query == null)
+                ////// {
+                //////     return null;
+                ////// }
+
             }
             
             if (!string.IsNullOrWhiteSpace(propertysObj.PropertyDescription))
             {
+                
                 query = query.Where(property => property.PropertyDescription == propertysObj.PropertyDescription);
-            } 
-            
-            
+            }
+          
             if (!string.IsNullOrWhiteSpace(propertysObj.PropertyAddress))
             {
                 query = query.Where(property => property.PropertyAddress == propertysObj.PropertyAddress);
             }
-
+            
             if (propertysObj.PropertyPrice > 0)
             {
                 query = query.Where(property => property.PropertyPrice == propertysObj.PropertyPrice);
@@ -65,6 +71,11 @@ namespace Property.Repositories
         }
         public async Task<IEnumerable<Propertys>> GetSearchAsync(string find)
         {
+
+            //if(int.TryParse(find, out int count))
+            //{
+
+            //}
             
             string keyword = find.ToLower();
 

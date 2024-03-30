@@ -56,7 +56,7 @@ namespace Property.API.Controllers
         // GET api/<PropertysController>/5
         [HttpGet("{id}")]
         public async Task<GetPropertyDto> Get(int id)
-        {
+       {
             return await _propertyService.GetPropertyAsync(id);
         }
 

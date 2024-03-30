@@ -103,3 +103,7 @@ Content-Type: application/json
 }
 
 ###
+
+GET {{Property.API_HostAddress}}/api/propertys/search?find=string
+
+###
