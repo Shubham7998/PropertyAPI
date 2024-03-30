@@ -98,7 +98,7 @@ namespace Property.Services
                 var propertys = await _propertyRepository.GetPropertysAsync();
 
                 var propertyDto = propertys.Select(
-                                                    property => new GetPropertiesDto(property.PropertyId,
+                                            property => new GetPropertiesDto(property.PropertyId,
                                             property.PropertyTitle,
                                             property.PropertyTypeId,
                                             property.PropertyDescription,
@@ -109,7 +109,6 @@ namespace Property.Services
                                             property.PropertyStatusId,
                                             property.PropertyType.TypeName,
                                             property.PropertyStatusType.StatusName
-                                            
                                             ));
                 return propertyDto;
             }
@@ -147,10 +146,20 @@ namespace Property.Services
 
 
         }
-        public async Task<IEnumerable<GetPropertiesDto>> GetPropertyAdvanceFilterAsync(Propertys propertysObj)
+        public async Task<IEnumerable<GetPropertiesDto>> GetPropertyAdvanceFilterAsync(GetPropertyDto propertysObj)
         {
 
-            var propertyList = await _propertyRepository.GetPropertyAdvanceFilterAsync(propertysObj);
+            var propertyList = await _propertyRepository.GetPropertyAdvanceFilterAsync(new Propertys() { 
+                PropertyId = propertysObj.PropertyId,
+                PropertyTitle = propertysObj.PropertyTitle,
+                PropertyTypeId = propertysObj.PropertyTypeId,
+                PropertyDescription = propertysObj.PropertyDescription,
+                PropertyAddress = propertysObj.PropertyAddress,
+                PropertyPrice = propertysObj.PropertyPrice,
+                PropertySize = propertysObj.PropertySize,
+                PropertyBedrooms = propertysObj.PropertyBedrooms,
+                PropertyStatusId = propertysObj.PropertyStatusId
+            });
 
             var propertyDto = propertyList.Select(
             property => 

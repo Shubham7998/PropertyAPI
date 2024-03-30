@@ -58,3 +58,48 @@ Content-Type: application/json
 }
 
 ###
+
+GET {{Property.API_HostAddress}}/api/propertys/filter
+
+###
+
+GET {{Property.API_HostAddress}}/api/propertys/advance
+
+{
+         "propertyTitle" : "propertyTitle",
+        "propertyTypeId": 0,
+        "propertyDescription" : "propertyDescription",
+        "propertyAddress": "propertyAddress",
+        "propertyPrice": 10,
+        "propertySize": 10,
+        "propertyBedrooms": 10,
+        "propertyStatusId": 10
+}
+
+###
+
+POST {{Property.API_HostAddress}}/api/propertys/advance
+Content-Type: application/json
+
+{
+        "propertyId" : 0,
+        "propertyTitle" : "qwerqwe",
+        "propertyTypeId": 1,
+        "propertyDescription" : "",
+        "propertyAddress": "",
+        "propertyPrice": 0,
+        "propertySize":0 ,
+        "propertyBedrooms": 0,
+        "propertyStatusId": 0
+}
+
+###
+
+POST {{Property.API_HostAddress}}/api/propertys/advancesearch
+Content-Type: application/json
+
+{
+  //GetPropertyDto
+}
+
+###

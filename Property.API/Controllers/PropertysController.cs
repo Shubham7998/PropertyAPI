@@ -39,8 +39,8 @@ namespace Property.API.Controllers
 
             }
         }
-        [HttpGet("filter")]
-        public async Task<ActionResult<IEnumerable<GetPropertyDto>>> AdvanceSearchInput([FromBody] Propertys propertys)
+        [HttpPost("advancesearch")]
+        public async Task<ActionResult<IEnumerable<GetPropertyDto>>> AdvanceSearchInput([FromBody] GetPropertyDto propertys)
         {
             try
             {

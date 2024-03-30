@@ -26,9 +26,10 @@ namespace Property.Repositories
         
         public async Task<IEnumerable<Propertys>> GetPropertyAdvanceFilterAsync(Propertys propertysObj)
         {
+            var query = _dbContext.properties.AsQueryable();
+
             await _dbContext.properties.Include(x => x.PropertyType).Include(x => x.PropertyStatusType).ToListAsync();
 
-            var query = _dbContext.properties.AsQueryable();
             if (!string.IsNullOrWhiteSpace(propertysObj.PropertyTitle))
             {
                 query = query.Where(property => property.PropertyTitle == propertysObj.PropertyTitle);
@@ -59,7 +60,6 @@ namespace Property.Repositories
             {
                 query = query.Where(property => property.PropertyBedrooms == propertysObj.PropertyBedrooms);
             }
-
 
             return await query.ToListAsync();
         }
